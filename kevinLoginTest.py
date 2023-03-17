@@ -16,13 +16,19 @@ import os
 options = webdriver.ChromeOptions()
 options.add_argument('--start-maximized')
 # options.add_argument('--start-fullscreen')
+
+prefs = {"":""}
+prefs["credentials_enable_service"] = False
+prefs["profile.password_manager_enabled"] = False
+options.add_experimental_option("prefs", prefs) ##关掉密码弹窗
 # 防止打印無用log
 options.add_experimental_option(
     "excludeSwitches", ['enable-automation', 'enable-logging'])
+
 options.add_argument('disable-infobars')
 options.add_argument('--no-sandbox')
 options.add_argument('--ignore-certificate-errors')
-driver = webdriver.Chrome(executable_path=r"C:\Users\user\AppData\Local\Programs\Python\Python310\chromedriver.exe",chrome_options=options)
+driver = webdriver.Chrome(executable_path=r"C:\Users\user\Desktop\PortablePython\App\Python\chromedriver.exe",chrome_options=options)
 # driver.set_window_size(1200, 4500)
 driver.implicitly_wait(30)
 url = "https://kevinchen800116.github.io/login/#/login"
@@ -36,13 +42,24 @@ try:
     login_page.open()
     login_page.input_username(username)
     login_page.input_password(password)
-    login_page.take_screenshot()
     login_page.click_loginBtn()
     time.sleep(1)
-    login_page.AddInfo()
+    login_page.AddInfo("selenium測試")
     time.sleep(1)
+    login_page.click_selectionBtn(3)
+    login_page.AddInfo("selenium測試2")
+    login_page.click_selectionBtn(2)
+    login_page.AddInfo("selenium測試3")
+    login_page.click_selectionBtn(5)
+    time.sleep(3)
     login_page.DelFO()
-    time.sleep(10)
+    login_page.DelFO()
+    login_page.DelFO()
+    login_page.DelFO()
+    login_page.DelFO()
+    login_page.take_screenshot()
+    login_page.quiteBtn()
+    time.sleep(3)
     driver.quit()
 
 except Exception as e:
